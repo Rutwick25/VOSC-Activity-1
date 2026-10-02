@@ -1,0 +1,424 @@
+/* ==========================================================================
+   1. CSS Variables & Theme Configuration
+   ========================================================================== */
+:root {
+  /* Color Palette (Dark Theme) */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-hover: #273549;
+  --bg-cell: #0f172a;
+  --bg-cell-hover: #1e293b;
+  --border-color: #334155;
+  --border-cell: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  
+  /* Player Accent Colors */
+  --color-x: #38bdf8;        /* Bright Sky Blue */
+  --color-x-glow: rgba(56, 189, 248, 0.4);
+  --color-o: #fb7185;        /* Vibrant Rose/Coral */
+  --color-o-glow: rgba(251, 113, 133, 0.4);
+  --color-tie: #cbd5e1;
+  
+  /* Status & Highlight Colors */
+  --color-win: #22c55e;      /* Emerald Green */
+  --color-win-bg: rgba(34, 197, 94, 0.22);
+  --color-win-glow: rgba(34, 197, 94, 0.6);
+
+  /* Typography & Sizing */
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --transition-fast: 0.18s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. Reset & Base Styles
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   3. Game Container & Layout
+   ========================================================================== */
+.game-container {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* ==========================================================================
+   4. Header & Mode Selection
+   ========================================================================== */
+.game-header {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.game-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--color-x), var(--color-o));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+}
+
+.mode-selector {
+  display: flex;
+  align-items: center;
+}
+
+.mode-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.mode-select {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.mode-select:hover,
+.mode-select:focus {
+  border-color: var(--color-x);
+  background-color: var(--bg-card-hover);
+}
+
+/* ==========================================================================
+   5. Scoreboard
+   ========================================================================== */
+.scoreboard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.score-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  position: relative;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.score-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.score-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.player-x-card .score-title { color: var(--color-x); }
+.player-o-card .score-title { color: var(--color-o); }
+.ties-card .score-title { color: var(--color-tie); }
+
+/* Highlight active player on scoreboard */
+.score-card.active {
+  transform: translateY(-2px);
+}
+.player-x-card.active {
+  border-color: var(--color-x);
+  box-shadow: 0 0 15px var(--color-x-glow);
+}
+.player-o-card.active {
+  border-color: var(--color-o);
+  box-shadow: 0 0 15px var(--color-o-glow);
+}
+
+/* ==========================================================================
+   6. Status Banner
+   ========================================================================== */
+.status-banner {
+  width: 100%;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.status-banner.win-x {
+  color: var(--color-x);
+  border-color: var(--color-x);
+  box-shadow: 0 0 14px var(--color-x-glow);
+}
+
+.status-banner.win-o {
+  color: var(--color-o);
+  border-color: var(--color-o);
+  box-shadow: 0 0 14px var(--color-o-glow);
+}
+
+.status-banner.draw {
+  color: var(--text-primary);
+  border-color: var(--color-tie);
+}
+
+/* ==========================================================================
+   7. Game Board & Cells
+   ========================================================================== */
+.game-board {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.65rem;
+  background-color: var(--bg-card);
+  padding: 0.65rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.cell {
+  position: relative;
+  background-color: var(--bg-cell);
+  border: 1px solid var(--border-cell);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cell:hover:not(.occupied):not(.disabled) {
+  background-color: var(--bg-cell-hover);
+  border-color: var(--text-secondary);
+  transform: scale(1.02);
+}
+
+.cell.occupied {
+  cursor: not-allowed;
+}
+
+.cell.disabled {
+  cursor: default;
+}
+
+/* Hover Ghost Selection Previews */
+.game-board.turn-x .cell:not(.occupied):not(.disabled):hover::after {
+  content: 'X';
+  color: var(--color-x);
+  opacity: 0.35;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  position: absolute;
+}
+
+.game-board.turn-o .cell:not(.occupied):not(.disabled):hover::after {
+  content: 'O';
+  color: var(--color-o);
+  opacity: 0.35;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  position: absolute;
+}
+
+/* Player 'X' Placed Style */
+.cell.x {
+  color: var(--color-x);
+  text-shadow: 0 0 14px var(--color-x-glow);
+}
+
+/* Player 'O' Placed Style */
+.cell.o {
+  color: var(--color-o);
+  text-shadow: 0 0 14px var(--color-o-glow);
+}
+
+/* Placed mark element */
+.cell span.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  width: 100%;
+  height: 100%;
+  animation: popIn 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  75% {
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Winning cells highlight & pulse animation */
+.cell.winner {
+  background-color: var(--color-win-bg);
+  border-color: var(--color-win);
+  animation: winPulse 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes winPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 8px var(--color-win-glow);
+  }
+  100% {
+    transform: scale(1.04);
+    box-shadow: 0 0 20px var(--color-win-glow);
+  }
+}
+
+/* ==========================================================================
+   8. Controls & Buttons
+   ========================================================================== */
+.game-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-restart {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  width: 100%;
+}
+
+.btn-restart:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--color-x);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-restart:active {
+  transform: translateY(1px);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+  display: inline-block;
+  transition: transform var(--transition-smooth);
+}
+
+.btn-restart:hover .btn-icon {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   9. Responsive Design
+   ========================================================================== */
+@media (max-width: 480px) {
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  .game-title {
+    font-size: 1.8rem;
+  }
+
+  .cell {
+    font-size: 2.6rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .game-board {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .score-value {
+    font-size: 1.2rem;
+  }
+}

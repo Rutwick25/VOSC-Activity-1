@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe | VOSC Activity-1</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="game-container">
+    <!-- Header Section -->
+    <header class="game-header">
+      <h1 class="game-title">Tic-Tac-Toe</h1>
+      
+      <!-- Mode Selection (PvP vs vs AI) -->
+      <div class="mode-selector">
+        <label for="ai-toggle" class="mode-label">
+          <span>Mode:</span>
+          <select id="ai-toggle" class="mode-select">
+            <option value="pvp">Two Players (1v1)</option>
+            <option value="ai">vs Computer (AI)</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <!-- Scoreboard Section -->
+    <section class="scoreboard" aria-label="Scoreboard">
+      <div class="score-card player-x-card active">
+        <span class="score-title">Player X</span>
+        <span class="score-value" id="score-x">0</span>
+      </div>
+      <div class="score-card ties-card">
+        <span class="score-title">Draws</span>
+        <span class="score-value" id="score-ties">0</span>
+      </div>
+      <div class="score-card player-o-card">
+        <span class="score-title" id="player-o-title">Player O</span>
+        <span class="score-value" id="score-o">0</span>
+      </div>
+    </section>
+
+    <!-- Turn & Result Status Banner -->
+    <div class="status-banner" id="status-text" aria-live="polite">
+      Player X's turn
+    </div>
+
+    <!-- 3x3 Game Board Grid -->
+    <main class="game-board" id="game-board" role="grid" aria-label="Tic-Tac-Toe Grid">
+      <button class="cell" data-cell-index="0" role="gridcell" aria-label="Cell 1"></button>
+      <button class="cell" data-cell-index="1" role="gridcell" aria-label="Cell 2"></button>
+      <button class="cell" data-cell-index="2" role="gridcell" aria-label="Cell 3"></button>
+      <button class="cell" data-cell-index="3" role="gridcell" aria-label="Cell 4"></button>
+      <button class="cell" data-cell-index="4" role="gridcell" aria-label="Cell 5"></button>
+      <button class="cell" data-cell-index="5" role="gridcell" aria-label="Cell 6"></button>
+      <button class="cell" data-cell-index="6" role="gridcell" aria-label="Cell 7"></button>
+      <button class="cell" data-cell-index="7" role="gridcell" aria-label="Cell 8"></button>
+      <button class="cell" data-cell-index="8" role="gridcell" aria-label="Cell 9"></button>
+    </main>
+
+    <!-- Game Control Actions -->
+    <footer class="game-controls">
+      <button id="restart-btn" class="btn btn-restart">
+        <span class="btn-icon">🔄</span> Restart Round
+      </button>
+    </footer>
+  </div>
+</body>
+</html>
